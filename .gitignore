@@ -1,0 +1,13 @@
+**.venv
+**.aux
+**.log
+**.out
+**.nav
+**.snm
+**.toc
+**.synctex.gz
+**.synctex(busy)
+
+# Ignored large files
+**/X_mnist.csv
+**/y_mnist.csv
