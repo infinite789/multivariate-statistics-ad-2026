@@ -1,0 +1,212 @@
+%!TEX program = lualatex
+
+\documentclass[11pt, a4paper]{article}
+\usepackage[a4paper, margin=2.5cm]{geometry}
+\usepackage{fontspec}
+\usepackage[bulgarian, english, bidi=basic, provide=*]{babel}
+\babelprovide[import, onchar=ids fonts]{bulgarian}
+\babelfont{rm}{Noto Sans}
+\babelfont{tt}{Noto Sans Mono}
+
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{array}
+\usepackage{caption}
+\usepackage{titling}
+
+\setlength{\droptitle}{-2cm}
+
+\titleformat{\title}{\normalfont\Large\bfseries}{\thetitle}{1em}{}
+\titleformat{\section}{\normalfont\large\bfseries}{\thesection}{1em}{}
+
+\definecolor{primary}{RGB}{30, 64, 175}
+\definecolor{secondary}{RGB}{71, 85, 105}
+\definecolor{bgcode}{rgb}{0.93,0.93,0.93}
+\definecolor{bordercode}{rgb}{0.82,0.82,0.82}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=primary,
+    urlcolor=primary
+}
+
+\lstset{
+    backgroundcolor=\color{bgcode},
+    frame=single,
+    rulecolor=\color{bordercode},
+    basicstyle=\ttfamily\small,
+    breaklines=true,
+    showstringspaces=false
+}
+
+% Създаване на команда \code{...} за inline код със сив фон:
+\usepackage[most]{tcolorbox}
+\usepackage{varwidth}
+
+\newtcbox{\code}{%
+  on line,
+  boxsep=0pt,
+  left=2pt,
+  right=2pt,
+  top=1pt,
+  bottom=1pt,
+  colback=bgcode,
+  colframe=bgcode,
+  fontupper=\ttfamily,
+  tcbox raise base,
+  varwidth upper=\linewidth % Използва varwidth за ограничаване до ширината на реда
+}
+
+% Команда за бутон +
+\newcommand{\addbutton}{%
+  \begin{tikzpicture}[baseline=-0.5ex]
+    \node[circle, fill=blue!80!black, inner sep=1.5pt, text=white, font=\bfseries\small] {+};
+  \end{tikzpicture}%
+}
+
+\setlist[itemize]{label=\textbullet}
+
+\title{\Large\bfseries Инструкции за инсталиране на Jupyter Notebook чрез Anaconda}
+\date{}
+
+\begin{document}
+
+\maketitle
+\vspace{-3cm}
+
+\section{Инсталация на Anaconda}
+
+{\color{red} Не е нужно ако използвате Google Colab!} \\
+
+\textbf{Anaconda} е пакет, който включва Python, Jupyter Notebook и най-популярните библиотеки за обработка на данни.
+
+\begin{enumerate}
+    \item Отидете на официалния уебсайт: \url{https://www.anaconda.com/download}
+    \item Регистрирайте се за да получите достъп.
+    \item Изтеглете инсталационния файл \textbf{Anaconda distribution} за вашата операционна система (Windows, macOS или Linux).
+    \item Стартирайте изтегления файл и следвайте инструкциите на екрана.
+    \item След завършване на инсталацията вече разполагате с Python и Jupyter Notebook.
+\end{enumerate}
+
+\section{Стартиране на Jupyter Notebook}
+
+Има няколко достъпни варианта за работа с Jupyter Notebook: локален Jupyter Notebook сървър, JupyterLab, VS Code, или Google Colab. За сравнение вижте таблицата по-долу.
+
+\subsection{Jupyter Notebook сървър}
+
+\begin{enumerate}
+    \item Отворете Anaconda Navigator.
+    \item Кликнете върху иконата \textbf{Launch} под Jupyter Notebook.
+    \item Това отваря Jupyter Notebook в папката на вашия потребителски профил.
+    \item Отворете съществуваща папка или създайте нова на удобно за вас място.
+    \item Създайте нов ноутбук с \addbutton{} бутона.
+\end{enumerate}
+
+\subsection{JupyterLab}
+\begin{enumerate}
+    \item Отворете Anaconda Navigator.
+    \item Кликнете върху иконата \textbf{Launch} под JupyterLab.
+    \item Отворете съществуваща папка или създайте нова на удобно за вас място.
+    \item Създайте нов ноутбук с \addbutton{} бутона.
+\end{enumerate}
+
+\subsection{VS Code}
+\begin{enumerate}
+    \item Отворете Anaconda Navigator.
+    \item Кликнете върху иконата \textbf{Install} под VS Code.
+    \item След инсталация кликнете върху иконата \textbf{Launch} под VS Code.
+    \item Включете автоматичното запаметяване \textbf{File} \rightarrow \ \ \textbf{Auto save}.
+    \item Отворете съществуваща папка.
+    \item Създайте нов \code{.ipynb} файл.
+    \item Отворете командния панел с \texttt{Ctrl + Shift + P} и потърсете \textbf{Python: Select Interpreter}, след което изберете интерпретатора от Anaconda.
+\end{enumerate}
+
+\subsection{Google Colab}
+\begin{enumerate}
+    \item Отидете на уебсайта \url{https://colab.research.google.com}.
+    \item Влезте в профила си в Googlе.
+    \item В началния прозорец изберете \textbf{New Notebook} или от менюто изберете \textbf{File} $\rightarrow$ \textbf{New notebook}.
+    \item При нужда свържете файла с вашия Google Drive чрез менюто \textbf{Files} $\rightarrow$ \textbf{Mount Drive}.
+    \item Промените се запазват автоматично в Google Drive.
+\end{enumerate}
+
+\section{Инсталиране на библиотеки и управление на средите}
+
+\begin{enumerate}
+    \item Потърсете и отворете Anaconda Prompt.
+    \item Ще видите че автоматично се активира средата \code{base}.
+    \item Тя вече съдържа голяма част от нужните библиотеки. (напр. \code{numpy}, \code{pandas})
+    \item За да инсталирате нова библиотека използвайте командата \code{pip install [lib]}. Тук \code{[lib]} се заменя с името на библиотеката.
+    \item За да създатете нова среда изполвайте командата \code{conda create --name [env]}. Тук \code{[env]} се заменя с името на новата среда.
+    \item По подразбиране новите среди не съдържат всички библиотеки и трябва да се инсталират.
+    \item За да инсталирате библиотеки в средата, тя трябва да се активира с командата \code{conda activate [env]}. 
+    \item За да ползвате средата е от значение кой от вариантите препдпочитате:
+    \begin{itemize}
+        \item За Jupyter Notebook първо инсталирайте пакета \code{conda install notebook}. След това стартирайте нов сървър с \code{jupyter notebook}.
+        \item За JupyterLab първо инсталирайте пакета \code{conda install jupyterlab}. След това стартирайте нов сървър с \code{jupyter lab}.
+        \item За VS Code първо инсталирайте пакета \code{conda install ipykernel}. Отворете VS Code в желаната папка/файл и изберете интерпретатора на новата среда.
+    \end{itemize}
+\end{enumerate}
+
+\begin{table}[htbp]
+\centering
+\caption*{Сравнение на варианти за работа с Jupyter Notebook}
+\label{tab:jupyter_environments}
+\begin{tabular}{p{0.22\textwidth} p{0.36\textwidth} p{0.36\textwidth}}
+\toprule
+\textbf{Вариант} & \textbf{Предимства} & \textbf{Недостатъци} \\
+\midrule
+\textbf{Jupyter Notebook сървър} & 
+\begin{itemize}[leftmargin=*, nosep, before=\vspace{-0.5\baselineskip}]
+    \item Ползва се през браузъра. Няма нужда от инсталиране на програми (освен пакета на Anaconda).
+\end{itemize} & 
+\begin{itemize}[leftmargin=*, nosep, before=\vspace{-0.5\baselineskip}]
+    \item Остарял интерфейс. Няма табове, няма страничен панел с файлово дърво.
+\end{itemize} \\
+\addlinespace[1em]
+
+\textbf{JupyterLab} & 
+\begin{itemize}[leftmargin=*, nosep, before=\vspace{-0.5\baselineskip}]
+    \item Може да се използва през браузъра, но и да се инсталира като отделна програма.
+    \item Интерфейса наподобява IDE програмите. Позволява табове, разделяне на екрана, има файлова структура, разширения, ...
+    \item Има вграден \textit{autocomplete} (автодовършване на функции) при двойно натискане на \code{Tab}.
+\end{itemize} & 
+\begin{itemize}[leftmargin=*, nosep, before=\vspace{-0.5\baselineskip}]
+    \item Не е пълно IDE. По-слаба екосистема от разширения - за Git, Latex, Копилот и пр.
+\end{itemize} \\
+\addlinespace[1em]
+
+\textbf{VS Code} & 
+\begin{itemize}[leftmargin=*, nosep, before=\vspace{-0.5\baselineskip}]
+    \item Леко IDE, с богата екосистема и приложения, повечето от които са напълно безплатни.
+    \item Покрива всички базисни качества на JupyterLab.
+    \item По-добър \textit{autocomplete}. Включва и други предимства от същия тип, като показване на плаващи прозорци с документация на функции, ...
+\end{itemize} & 
+\begin{itemize}[leftmargin=*, nosep, before=\vspace{-0.5\baselineskip}]
+    \item Сложната екосистема понякога води до софтуерни грешки или недобре поддържани разширения.
+    \item По-трудно за използване от хора без опит в програмирането.
+\end{itemize} \\
+\addlinespace[1em]
+
+\textbf{Google Colab} & 
+\begin{itemize}[leftmargin=*, nosep, before=\vspace{-0.5\baselineskip}]
+    \item Напълно онлайн. Не използвате процесора на локалния си компютър, а на облачна машина.
+    \item Възможност за използване на графични процесори за тежки операции.
+    \item Не изисква инсталиране на отделни програми на вашия компютър.
+    \item Може лесно да се сподели за екипна работа.
+\end{itemize} & 
+\begin{itemize}[leftmargin=*, nosep, before=\vspace{-0.5\baselineskip}]
+    \item Изисква качване на всички данни в интернет, които понякога може да са големи файлове, което отнема време.
+\end{itemize} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\end{document}
